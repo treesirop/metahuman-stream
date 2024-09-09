@@ -4,7 +4,12 @@ Real time interactive streaming digital human， realize audio video synchronous
 [ernerf效果](https://www.bilibili.com/video/BV1PM4m1y7Q2/)  [musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  [wav2lip效果](https://www.bilibili.com/video/BV1Bw4m1e74P/)
 
 ```bash
-python app.py --model ernerf --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream' --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400 --bg_img data/baby_trump.png --customvideo_config data/custom_config.json
+python app.py --model ernerf --transport rtcpush \
+--push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream' \
+--fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 \
+--fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 \
+--W 400 --H 400 --bg_img data/baby_trump.png \
+--customvideo_config data/custom_config.json
 
 
 $env:CANDIDATE ='127.0.0.1'
