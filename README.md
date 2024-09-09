@@ -3,6 +3,24 @@ Real time interactive streaming digital human， realize audio video synchronous
 
 [ernerf效果](https://www.bilibili.com/video/BV1PM4m1y7Q2/)  [musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  [wav2lip效果](https://www.bilibili.com/video/BV1Bw4m1e74P/)
 
+···
+python app.py --model ernerf --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream' --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400 --bg_img data/baby_trump.png --customvideo_config data/custom_config.json
+
+
+$env:CANDIDATE ='127.0.0.1'
+docker run --rm --env CANDIDATE=$env:CANDIDATE `
+  -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp `
+  registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 `
+  objs/srs -c conf/rtc.conf
+
+ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/local/lib/libstdc++.so.6
+
+ffmpeg -i assets/demo.mp4 -vf crop="400:400:100:5" train.mp4
+ffmpeg -i assets/demo.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%d.jpg
+ffmpeg -i assets/demo.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
+ffmpeg -i assets/demo.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.wav
+···
+
 ## Features
 1. 支持多种数字人模型: ernerf、musetalk、wav2lip
 2. 支持声音克隆
