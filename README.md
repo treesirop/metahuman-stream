@@ -15,6 +15,8 @@ docker run --rm --env CANDIDATE=$env:CANDIDATE `
 
 ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/local/lib/libstdc++.so.6
 
+mkdir -p data/fullbody/img
+mkdir -p data/customvideo/image
 ffmpeg -i assets/demo.mp4 -vf crop="400:400:100:5" train.mp4
 ffmpeg -i assets/demo.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%d.jpg
 ffmpeg -i assets/demo.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
