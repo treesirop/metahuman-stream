@@ -28,6 +28,49 @@ ffmpeg -i assets/demo.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 d
 ffmpeg -i assets/demo.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.wav
 ```
 
+```bash
+ssh -p 27857 root@connect.westb.seetacloud.com
+
+python app.py --listenport 6006 --model ernerf --transport rtcpush \
+--push_url 'http://38.55.193.244:1985/rtc/v1/whip/?app=live&stream=livestream' \
+--fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 \
+--fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 \
+--W 400 --H 400 \
+--customvideo_config data/custom_config.json
+
+python app.py --model ernerf --transport rtcpush \
+--push_url 'http://38.55.193.244:1985/rtc/v1/whip/?app=live&stream=livestream' \
+--fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 \
+--fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 \
+--W 400 --H 400 \
+--customvideo_config data/custom_config.json
+
+python app.py --listenport 6006 --model ernerf --transport rtmp \
+--push_url 'rtmp:///38.55.193.244/live/livestream' \
+--fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 \
+--fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 \
+--W 400 --H 400 \
+--customvideo_config data/custom_config.json
+
+http://38.55.193.244:8010/rtcpushapi.html
+
+http://38.55.193.244:8010:8888
+
+ssh -p 38761 root@connect.westb.seetacloud.com
+3SAcVQqTCYIA
+
+http://127.0.0.1:6006/rtcpushapi.html
+
+http://38.55.193.244:8080/players/srs_player.html
+rtmp:///38.55.193.244/live/livestream
+
+修改了rtcpushapi.html
+autodl ssh隧道
+ssh -CNg -L 6006:127.0.0.1:6006 root@connect.westb.seetacloud.com -p 38761
+
+
+ffmpeg -i w1.mp4 -vf crop="512:512:284944" train_w1.mp4
+```
 ## Features
 1. 支持多种数字人模型: ernerf、musetalk、wav2lip
 2. 支持声音克隆
